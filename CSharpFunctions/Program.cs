@@ -1,91 +1,69 @@
 ﻿// See https://aka.ms/new-console-template for more information
-/*
-Esercizio di oggi: CSharpFunctions
-nome repo: csharp-functions
-In questo esercizio vi chiedo di definire qualche funzione di utilità che poi potete usare per poter fare operazioni complesse nei vostri programma principale.
-Scrivete nel vostro programma principale Program.cs le seguenti funzioni di base:
-void StampaArray(int[] array): che preso un array di numeri interi, stampa a video il contenuto dell’array in questa forma “[elemento 1, elemento 2, elemento 3, ...]”. Potete prendere quella fatta in classe questa mattina :faccia_leggermente_sorridente:
-int Quadrato(int numero): che vi restituisca il quadrato del numero passato come parametro.
-int[] ElevaArrayAlQuadrato(int[] array): che preso un array di numeri interi, restituisca un nuovo array con tutti gli elementi elevati quadrato. Attenzione: è importante restituire un nuovo array, e non modificare l’array come parametro della funzione! Vi ricordate perchè? Pensateci (vedi slide)
-int sommaElementiArray(int[] array): che preso un array di numeri interi, restituisca la somma totale di tutti gli elementi dell’array.
-Una volta completate queste funzioni di utilità di base, e dato il seguente array di numeri [2, 6, 7, 5, 3, 9] già dichiarato nel vostro codice, si vogliono utilizzare le funzioni per:
-Stampare l’array di numeri fornito a video
-Stampare l’array di numeri fornito a video, dove ogni numero è stato prima elevato al quadrato (Verificare che l’array originale non sia stato modificato quindi ristampare nuovamente l’array originale e verificare che sia rimasto [2, 6, 7, 5, 3, 9])
-Stampare la somma di tutti i numeri
-Stampare la somma di tutti i numeri elevati al quadrati
-BONUS: Convertire le funzioni appena dichiarate in funzioni generiche, ossia funzioni che possono lavorare con array di numeri interi di lunghezza variabile, ossia debbono poter funzionare sia che gli passi array di 5 elementi, sia di 6, di 7, di ... e così via.
-A questo punto modificare il programma in modo che chieda all’utente quanti numeri voglia inserire, e dopo di che questi vengono inseriti a mano dall’utente esternamente. Rieseguire il programma con l’input preso esternamente dall’utente
-*/
 
 
+//---------parte principale--------
+
+int[] lista = { 2, 6, 7, 5, 3, 9 };
+
+stampaArray(lista);
+stampaArray(elevaArrayAlQuadrato(lista));
+stampaArray(lista);
+
+int sum = sommaElementiArray(lista);
+
+Console.WriteLine("La somma di tutti i numrti è: " + sum);
+
+int sumAlQuadrato = sommaElementiArray(elevaArrayAlQuadrato(lista));
+
+Console.WriteLine("La somma di tutti i numeri elevati al qaudrato è: " + sumAlQuadrato);
 
 
+//--------funzioni----------
 
-
-Console.WriteLine("ESERCITAZIONE SULLE FUNZIONI");
-
-//FUNZIONE CHE STAMPA ARRAY (arrayNumeri)
-
-void StampaArrayInteri(int[] array)
+void stampaArray(int[] array)   //------funzione stampa in video
 {
-    int ultimoIndiceArray = array.Length - 1;
-    Console.Write("[");
-    for (int i = 0; i < array.Length; i++)
+    Console.Write("[ ");
+
+    for(int i = 0; i < array.Length-1; i++)    
     {
-        if (i == ultimoIndiceArray)
-        {
-            Console.Write(array[i]);
-        }
-        else
-        {
-            Console.Write(array[i] + ", ");
-        }
+        Console.Write(array[i] + ", ");
+
     }
-    Console.WriteLine("]");
+    Console.WriteLine(array[array.Length - 1] + " ]");
 }
 
-int[] arrayDiNumeri = { 19, 25, 56, 27 };
-StampaArrayInteri(arrayDiNumeri);
-
-//-----------------------------------------------------------------------------------------//
-
-//int Quadrato(int numero): che vi restituisca il quadrato del numero passato come parametro.
-
-Console.WriteLine("CREO FUNZIONE CHE CALCOLA IL QUADRATO DI UN NUMERO n");
-
-int QuadratoNumero(int n)
+int quadrato(int numero)      //--------calcolo quadrato di un numero
 {
-    int risultato = n * n * n;
+    int risultato;
+    risultato = numero * numero;
     return risultato;
 }
 
-int n = 8;
-Console.WriteLine(QuadratoNumero(n));
-
-//-----------------------------------------------------------------------------------------//
-
-/*
-int[] ElevaArrayAlQuadrato(int[] array): che  preso  un array  di  numeri  interi, restituisca
-un nuovo array con tutti gli elementi elevati quadrato. Attenzione: è importante restituire un nuovo
-array, e non modificare l’array come parametro della funzione! Vi ricordate perchè? Pensateci (vedi slide)
-*/
-
-
-int [] ElevaArrayAlQuadrato(int[] numeri)
+int[] elevaArrayAlQuadrato(int[] array)    //------copio un array e ristituisco un valore il quadrato
 {
-    int[] numeri1 = (int[])numeri.Clone();
+    int[] copiaArray = (int[])array.Clone();
 
-    for (int i = 0; i < numeri1.Length; i++)
+    for(int i = 0; i <array.Length; i++)
     {
-
-        numeri1[i] = numeri[i] * numeri[i] ;
+        copiaArray[i] = quadrato(copiaArray[i]);
 
     }
-    return numeri1;
-
+    return copiaArray;
 }
 
-int[] numeri = { 4, 9, 5, 8, 3 };
-int [] array = ElevaArrayAlQuadrato(numeri);
-StampaArrayInteri(array);
+int sommaElementiArray(int[] array)
+{
+    int[] copiaArray = (int[])array.Clone();
+    int somma = 0;
+
+    for(int i = 0; i < array.Length; i++)
+    {
+        somma += copiaArray[i];
+    }
+    return somma;
+}
+
+
+
+
 
